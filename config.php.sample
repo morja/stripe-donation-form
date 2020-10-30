@@ -4,6 +4,8 @@ $config = array();
 $config['product_name'] = 'Donation';
 $config['product_descriptiion'] = 'Donation to SOMEONE';
 
+$config['max_requests_minute'] = 0; // 0 = no limitation
+
 $config['stripe_publishable_key'] = 'TEST_KEY';
 $config['stripe_secret_key'] = 'TEST_SECRET_KEY';
 $config['cancel_url'] = 'http://localhost:4242/index.php';

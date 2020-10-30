@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 require 'vendor/autoload.php';
 header('Content-Type: application/json');
 
@@ -31,20 +27,34 @@ if ($body->recaptcha_response) {
         createSession();
     } else {
         // Not verified - show form error
-        echo json_encode(array("error" => "invalid recaptcha"));
+        echo json_encode(array("error" => "Invalid recaptcha"));
     }
 
 }
 function createSession() {
     global $config, $body;
-    //file_put_contents("debug.log", print_r($body, true));
-
-    if ($body->amount < 5) {
-        return;
-    }
-
-    \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
     try {
+
+        if ($config['max_requests_minute'] > 0) {
+            $last_success_file = "last_success.time";
+            if (!file_exists($last_success_file)) {
+                touch($last_success_file);
+            }
+            // allow only X a request per minute
+            $last_success = file_get_contents($last_success_file);
+            if (time() - intval($last_success) < 60/$config['max_requests_minute']) {
+                echo json_encode(array("error" => "Too many requests, please wait a moment and try again."));
+                return;
+            }
+            file_put_contents($last_success_file, time());
+
+            if ($body->amount < 5) {
+                echo json_encode(array("error" => "Amount must be at least 5"));
+                return;
+            }
+        }
+
+        \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
         $checkout_session = \Stripe\Checkout\Session::create([
           'payment_method_types' => ['card'],
           'line_items' => [[

@@ -2,6 +2,8 @@
 
 This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to the Stripe checkout form.
 
+Supported are reCAPTCHA v2 and v3. 
+
 ## Running the sample
 
 1. Build the server
