@@ -10,6 +10,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body = json_decode($input);    
 }
 
+if ($body->amount < 5) {
+    echo json_encode(array("error" => "Amount must be at least 5"));
+    exit;
+}
+
+if ($config['max_requests_minute'] > 0) {
+    $last_success_file = "last_success.time";
+    if (!file_exists($last_success_file)) {
+        touch($last_success_file);
+    }
+    // allow only X a request per minute
+    $last_success = file_get_contents($last_success_file);
+    if (time() - intval($last_success) < 60/$config['max_requests_minute']) {
+        echo json_encode(array("error" => "Too many requests, please wait a moment and try again."));
+        exit;
+    }
+    file_put_contents($last_success_file, time());
+
+}
+
 if ($body->recaptcha_response) {
 
     // Build POST request:
@@ -34,25 +54,6 @@ if ($body->recaptcha_response) {
 function createSession() {
     global $config, $body;
     try {
-
-        if ($config['max_requests_minute'] > 0) {
-            $last_success_file = "last_success.time";
-            if (!file_exists($last_success_file)) {
-                touch($last_success_file);
-            }
-            // allow only X a request per minute
-            $last_success = file_get_contents($last_success_file);
-            if (time() - intval($last_success) < 60/$config['max_requests_minute']) {
-                echo json_encode(array("error" => "Too many requests, please wait a moment and try again."));
-                return;
-            }
-            file_put_contents($last_success_file, time());
-
-            if ($body->amount < 5) {
-                echo json_encode(array("error" => "Amount must be at least 5"));
-                return;
-            }
-        }
 
         \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
         $checkout_session = \Stripe\Checkout\Session::create([
