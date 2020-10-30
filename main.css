@@ -1,0 +1,87 @@
+#buttons {
+  max-width: 300px;
+}
+.row {
+  width: 100%;
+  white-space: nowrap;
+}
+.row1 * {
+  width: calc(50% - 8px);
+}
+.row2 * {
+  width: calc(33% - 8px);
+}
+.row3 div * {
+  width: calc(25% - 6px);
+}
+
+.custom_amount_left {
+  padding-left: 2px;
+}
+.row4 > * {
+  display: inline-block; 
+  width: calc(50% - 6px);
+}
+.row4 .table > * {
+  display: inline-block; 
+}
+.row4 .custom_amount {
+  width: calc(100% - 15px);
+}
+.row4 .custom_amount input {
+  width: 100%;
+  margin:3px 0px 3px 0;
+  background-color:#fff;
+  color:#a2a2a5;
+  padding:5px 5px;
+  margin:3px 0 3px 0px;
+  border: 2px;
+  border-radius: 4px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #a2a2a5;
+  height: 30px;
+}
+.row4 .currsym {
+  background-color:#a2a2a5;
+  color:#FFF;
+  padding:4px 2px;
+  margin:3px 0; 
+  border:0;
+  border-radius:4px;
+  font-size: 1em;
+  font-weight: normal;
+  width: 10px;
+}
+
+button, input {
+  background-color:#a7a2a2;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 13px !important;
+  font-weight: 400;
+  line-height: normal;
+  color:#FFF;
+  padding:8px 8px;
+  margin:3px;
+  border:0;
+  border-radius:4px;
+  font-size:1em;
+}
+.active, #checkout-button {
+  background-color:#bf8052;
+  border-color: #bf8052;
+}
+#checkout-button {
+  margin:3px 3px 3px 6px;
+  cursor: pointer;
+}
+.currency_option:nth-of-type(2), .currency_option:nth-of-type(3) {
+  display: none;
+}
+#error-message {
+  font-weight: bold;
+  color: red;
+  padding-top: 5px;
+}
