@@ -50,7 +50,10 @@ if ($body->recaptcha_response) {
         echo json_encode(array("error" => "Invalid recaptcha"));
     }
 
+} else {
+    echo json_encode(array("error" => "Missing recaptcha"));
 }
+
 function createSession() {
     global $config, $body;
     try {
