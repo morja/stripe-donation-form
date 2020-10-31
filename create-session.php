@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body = json_decode($input);    
 }
 
-if ($body->amount < 5) {
+if ($body->amount < $config['min_amount']) {
     echo json_encode(array("error" => "Amount must be at least 5"));
     exit;
 }

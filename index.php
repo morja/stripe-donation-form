@@ -158,8 +158,8 @@ function doPayment(recaptcha_response) {
       }
     }
 
-    if (amount < 5) {
-        document.getElementById('error-message').innerHTML = 'Minimum amount is 5';
+    if (amount < <?php echo $config['min_amount']; ?>) {
+        document.getElementById('error-message').innerHTML = 'Minimum amount is <?php echo $config['min_amount']; ?>';
         return false;
     }
 
