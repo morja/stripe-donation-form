@@ -4,7 +4,7 @@ This is a simple PHP script that shows a donation form, checks for a valid reCAP
 
 Supported are reCAPTCHA v2 and v3. 
 
-## Running the sample
+## Running the app
 
 ### Build the server
 

@@ -6,7 +6,10 @@ $config['product_descriptiion'] = 'Donation to SOMEONE';
 
 $config['max_requests_minute'] = 0; // 0 = no limitation
 
-$config['stripe_publishable_key'] = 'TEST_KEY';
+$config['currencies'] = ["USD" => "$", "EUR" => "€", "GBP" => "£"];
+$config['amounts'] = [10, 20, 50, 100];
+
+$config['stripe_publishable_key'] = 'TEST_PUB_KEY';
 $config['stripe_secret_key'] = 'TEST_SECRET_KEY';
 $config['cancel_url'] = 'http://localhost:4242/index.php';
 $config['success_url'] = 'http://localhost:4242/thankyou.html';
@@ -15,7 +18,7 @@ $config['domain'] = 'mydomain.tld';
 
 if ($_SERVER['HTTP_HOST'] == $config['domain']) {
     
-    $config['stripe_publishable_key'] = 'LIVE_KEY';
+    $config['stripe_publishable_key'] = 'LIVE_PUB_KEY';
     $config['stripe_secret_key'] = 'LIVE_SECRET_KEY';
     $config['cancel_url'] = 'https://' . $config['domain'] . '/index.php';
     $config['success_url'] = 'https://' . $config['domain'] . '/thankyou.html';
@@ -25,12 +28,12 @@ $config['recaptcha_version_v2'] = false; // v2 or v3
 
 if ($config['recaptcha_version_v2']) {
 
-    $config['recaptcha_site'] = 'V2_KEY'; 
+    $config['recaptcha_site'] = 'V2_SITE_KEY'; 
     $config['recaptcha_secret'] = 'V2_SECRET_KEY'; 
 
 } else { // v3
 
-    $config['recaptcha_site'] = 'V3_KEY'; 
+    $config['recaptcha_site'] = 'V3_SITE_KEY'; 
     $config['recaptcha_secret'] = 'V3_SECRET_KEY'; 
 }
 ?>
