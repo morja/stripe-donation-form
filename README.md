@@ -2,11 +2,14 @@
 
 This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to Stripe Checkout.
 
-Stripe API version 2020-08-27.
-
-Supported are reCAPTCHA v2 and v3. 
-
 ![Screenshot](https://user-images.githubusercontent.com/29610198/97778606-984ada80-1b78-11eb-8395-2f8a12d9f710.jpg)
+
+- Variable amount payments
+- Minimum amount
+- Multiple currencies
+- Stripe API version 2020-08-27.
+- reCAPTCHA v2 (Checkbox) and v3 (Invisible)
+- Limit requests per minute
 
 ## Running the app
 
