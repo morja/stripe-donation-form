@@ -4,6 +4,8 @@ This is a simple PHP script that shows a donation form, checks for a valid reCAP
 
 Supported are reCAPTCHA v2 and v3. 
 
+![Alt text](screenshot.jpg?raw=true "Screenshot")
+
 ## Running the app
 
 ### Build the server
