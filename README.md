@@ -1,6 +1,8 @@
-# Stripe donation form with variable amounts.
+# Stripe Checkout donation form with variable amounts.
 
-This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to the Stripe checkout form.
+This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to Stripe Checkout.
+
+Stripe API version 2020-08-27.
 
 Supported are reCAPTCHA v2 and v3. 
 
