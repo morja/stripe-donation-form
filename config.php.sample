@@ -8,6 +8,7 @@ $config['max_requests_minute'] = 0; // 0 = no limitation
 
 $config['currencies'] = ["USD" => "$", "EUR" => "€", "GBP" => "£"];
 $config['amounts'] = [10, 20, 50, 100];
+$config['min_amount'] = 5;
 
 $config['stripe_publishable_key'] = 'TEST_PUB_KEY';
 $config['stripe_secret_key'] = 'TEST_SECRET_KEY';
