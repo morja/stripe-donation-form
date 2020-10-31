@@ -6,13 +6,13 @@ Supported are reCAPTCHA v2 and v3.
 
 ## Running the sample
 
-1. Build the server
+### Build the server
 
 ```
 composer install
 ```
 
-2. Configuration
+### Configuration
 
 ```
 cp config.php.sample config.php
@@ -23,10 +23,17 @@ Fill in the details. You will need Stripe and reCAPTCHA keys.
 https://www.stripe.com/
 https://www.google.com/recaptcha/
 
-3. Run the server
+### Run the server
 
 ```
 php -S 127.0.0.1:4242
 ```
 
-4. Go to [http://localhost:4242/index.php](http://localhost:4242/index.php)
+### Go to 
+
+[http://localhost:4242/index.php](http://localhost:4242/index.php)
+
+### To-dos
+
+Improve html / css / js on index.php. 
+

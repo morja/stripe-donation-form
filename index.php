@@ -3,14 +3,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$currencies = ["USD" => "$", "EUR" => "€", "GBP" => "£"];
-$amounts = [10, 20, 50, 100];
-
 include('config.php');
 ?>
 <html>
   <head>
-    <title>Donate</title>
+    <title><?php echo $config['product_descriptiion']; ?></title>
     <link rel="stylesheet" href="main.css">
 <!-- Load Stripe.js on your website. -->
 <script src="https://js.stripe.com/v3"></script>
@@ -61,20 +58,26 @@ function unchoose(className){
 <body>
 <center>
 <div id="buttons">
+    <?php if (false) { // not implemented yet. Subscription seems to need fixed prices in Stripe ?>
   <div class="row row1" style="display: none;">
     <button id="method_once" name="method" onclick="choose(this);" value="payment" class="method active">ONCE</button>
     <button id="method_monthly" name="method" onclick="choose(this);" value="subscription" class="method">MONTHLY</button>
   </div> 
+      <?php }  ?>
   <div class="row row2">
-    <button id="currency_usd" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency active" value="usd">USD</button>
-    <button id="currency_eur" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency" value="eur">EUR</button>
-    <button id="currency_gbp" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency" value="gbp">GBP</button>
+        <?php 
+        $first_active = " active";
+        foreach ($config['currencies'] as $currency => $symbol) {
+            ?><button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
+            <?php 
+            $first_active = "";
+        }  ?>
   </div> 
   <div class="row row3">
       <?php 
-      foreach ($currencies as $currency => $symbol) {
+      foreach ($config['currencies'] as $currency => $symbol) {
         ?> <div id="<?php echo strtolower($currency);?>" class="currency_option"> <?php
-        foreach ($amounts as $amount) {
+        foreach ($config['amounts'] as $amount) {
            ?><button id="button_<?php echo strtolower($currency.$amount);?>" onclick="choose(this);" role="link" type="button" name="fixed_amount" class="amount" value="<?php echo $amount; ?>"><?php echo $symbol; ?><?php echo $amount; ?></button><?php
         } 
         ?> </div> 
@@ -83,7 +86,7 @@ function unchoose(className){
   <div class="row row4">
     <div>
       <?php 
-      foreach ($currencies as $currency => $symbol) {?>
+      foreach ($config['currencies'] as $currency => $symbol) {?>
       <div id="<?php echo strtolower($currency);?>_custom" class="currency_option custom_amount_left">
         <div class="table">
           <div class="currsym"><?php echo $symbol; ?></div>
