@@ -1,4 +1,4 @@
-# Stripe donation form with variable amounts and reCAPTCHA protection.
+# Stripe donation form with variable amounts.
 
 This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to the Stripe checkout form.
 
