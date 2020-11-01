@@ -1,6 +1,6 @@
-# Stripe Checkout donation form with variable amounts.
+# Stripe Checkout donation widget with variable amounts.
 
-This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to Stripe Checkout.
+This is a simple PHP script that shows a donation form/widget, checks for a valid reCAPTCHA response and upon success sends the user to Stripe Checkout.
 
 <img src="https://user-images.githubusercontent.com/29610198/97800138-26839700-1c33-11eb-95d5-81817390d0f5.jpg" width="350" alt="Screenshot">
 
