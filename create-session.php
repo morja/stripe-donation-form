@@ -58,8 +58,7 @@ function createSession() {
     global $config, $body;
     try {
 
-        \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
-        $checkout_session = \Stripe\Checkout\Session::create([
+        $session_params = [
           'payment_method_types' => ['card'],
           'line_items' => [[
             'price_data' => [
@@ -71,11 +70,22 @@ function createSession() {
               ],
             ],
             'quantity' => 1,
+            'description' => $config['product_descriptiion'],
           ]],
           'mode' => $body->mode,
           'success_url' => $config['success_url'], 
           'cancel_url' => $config['cancel_url'],
-        ]);
+        ];
+
+        if ($config['subscription'] && $body->mode == 'subscription') {
+            $session_params['line_items'][0]['price_data']['recurring'] = [
+                'interval' => $config['subscription_interval'],
+                'interval_count' => $config['subscription_interval_count'],
+              ];
+        }
+
+        \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
+        $checkout_session = \Stripe\Checkout\Session::create($session_params);
 
         //file_put_contents("debug.log", print_r($checkout_session, true));
 

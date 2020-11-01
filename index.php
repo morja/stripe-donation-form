@@ -58,49 +58,45 @@ function unchoose(className){
 <body>
 <center>
 <div id="buttons">
-    <?php if (false) { // not implemented yet. Subscription seems to need fixed prices in Stripe ?>
-  <div class="row row1" style="display: none;">
-    <button id="method_once" name="method" onclick="choose(this);" value="payment" class="method active">ONCE</button>
-    <button id="method_monthly" name="method" onclick="choose(this);" value="subscription" class="method">MONTHLY</button>
-  </div> 
+    <?php if ($config['subscription']) { ?>
+    <div class="row row1">
+        <button id="method_once" name="method" onclick="choose(this);" value="payment" class="method active">ONCE</button>
+        <button id="method_monthly" name="method" onclick="choose(this);" value="subscription" class="method">MONTHLY</button>
+    </div> 
       <?php }  ?>
-  <div class="row row2">
+    <div class="row row2">
         <?php 
         $first_active = " active";
-        foreach ($config['currencies'] as $currency => $symbol) {
-            ?><button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
+        foreach ($config['currencies'] as $currency => $symbol) { ?>
+            <button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
             <?php 
             $first_active = "";
-        }  ?>
-  </div> 
-  <div class="row row3">
-      <?php 
-      foreach ($config['currencies'] as $currency => $symbol) {
-        ?> <div id="<?php echo strtolower($currency);?>" class="currency_option"> <?php
-        foreach ($config['amounts'] as $amount) {
-           ?><button id="button_<?php echo strtolower($currency.$amount);?>" onclick="choose(this);" role="link" type="button" name="fixed_amount" class="amount" value="<?php echo $amount; ?>"><?php echo $symbol; ?><?php echo $amount; ?></button><?php
-        } 
-        ?> </div> 
-      <?php }  ?>
-  </div>
-  <div class="row row4">
-    <div>
-      <?php 
-      foreach ($config['currencies'] as $currency => $symbol) {?>
-      <div id="<?php echo strtolower($currency);?>_custom" class="currency_option custom_amount_left">
-        <div class="table">
-          <div class="currsym"><?php echo $symbol; ?></div>
-          <div class="custom_amount">
-            <input id="input_<?php echo strtolower($currency);?>" type="text" onfocus="choose(this); this.value = '';" onblur="if(this.value=='') {this.value='Other Amount';}" onkeyup="value=value.replace(/[^\d]/g,'')" name="other_amount" value="Other Amount" min="5" class="amount">
-           </div>
+        } ?></div> 
+    <div class="row row3">
+      <?php foreach ($config['currencies'] as $currency => $symbol) { ?> 
+        <div id="<?php echo strtolower($currency);?>" class="currency_option"> 
+        <?php foreach ($config['amounts'] as $amount) { ?>
+            <button id="button_<?php echo strtolower($currency.$amount);?>" onclick="choose(this);" role="link" type="button" name="fixed_amount" class="amount" value="<?php echo $amount; ?>"><?php echo $symbol; ?><?php echo $amount; ?></button>
+        <?php } ?></div> 
+      <?php } ?>
+    </div>
+    <div class="row row4">
+        <div>
+        <?php foreach ($config['currencies'] as $currency => $symbol) {?>
+            <div id="<?php echo strtolower($currency);?>_custom" class="currency_option custom_amount_left">
+                <div class="table">
+                  <div class="currsym"><?php echo $symbol; ?></div>
+                  <div class="custom_amount">
+                    <input id="input_<?php echo strtolower($currency);?>" type="text" onfocus="choose(this); this.value = '';" onblur="if(this.value=='') {this.value='Other Amount';}" onkeyup="value=value.replace(/[^\d]/g,'')" name="other_amount" value="Other Amount" min="5" class="amount">
+                   </div>
+                </div>
+            </div>
+        <?php }  ?>
         </div>
-       </div>
-      <?php }  ?>
-     </div>
-     <button id="checkout-button" role="link" type="button" name="checkout-button" class="">DONATE</button>
-  </div>
+        <button id="checkout-button" role="link" type="button" name="checkout-button" class="">DONATE</button>
+    </div>
 
-      <div id="html_element"></div>
+    <div id="html_element"></div>
 </div>
 <div id="error-message"></div>
 
