@@ -81,7 +81,22 @@ button, input {
   display: none;
 }
 #error-message {
-  font-weight: bold;
-  color: #ff6666;
-  padding-top: 8px;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #d9512b;
+  padding: 8px;
+}
+.grecaptcha-badge { 
+    visibility: hidden;
+}
+#recaptcha_text {
+  color: #666666;
+  font-size: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+#recaptcha_text a {
+  color: #666666;
 }

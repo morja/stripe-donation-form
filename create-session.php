@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $body = json_decode($input);    
 }
 
-if ($body->amount < $config['min_amount']) {
-    echo json_encode(array("error" => "Amount must be at least 5"));
+if (intval($body->amount) < $config['min_amount']) {
+    echo json_encode(array("error" => "The minimum amount is ". $config['min_amount'] ));
     exit;
 }
 
@@ -63,7 +63,7 @@ function createSession() {
           'line_items' => [[
             'price_data' => [
               'currency' => $body->currency,
-              'unit_amount' => $body->amount,
+              'unit_amount' => intval($body->amount) * 100,
               'product_data' => [
                 'name' => $config['product_name'],
                 'description' => $config['product_descriptiion']

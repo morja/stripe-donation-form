@@ -96,9 +96,21 @@ function unchoose(className){
         <button id="checkout-button" role="link" type="button" name="checkout-button" class="">DONATE</button>
     </div>
 
-    <div id="html_element"></div>
+    <div id="error-message"></div>
+
+    <?php if ($config['recaptcha_version_v2']) {
+        ?>
+        <div id="html_element"></div>
+        <?php
+    } else { ?>
+        <div id="recaptcha_text">
+            This form is protected by reCAPTCHA and the Google<br>
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+        </div>
+    <?php } ?>
 </div>
-<div id="error-message"></div>
+
 
 <?php if ($config['recaptcha_version_v2']) { ?>
 <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
@@ -155,7 +167,7 @@ function doPayment(recaptcha_response) {
     }
 
     if (amount < <?php echo $config['min_amount']; ?>) {
-        document.getElementById('error-message').innerHTML = 'Minimum amount is <?php echo $config['min_amount']; ?>';
+        document.getElementById('error-message').innerHTML = 'The minimum amount is <?php echo $config['min_amount']; ?>';
         return false;
     }
 
@@ -168,7 +180,7 @@ function doPayment(recaptcha_response) {
         },
         body: JSON.stringify({
             mode: mode,
-            amount: amount*100,
+            amount: amount,
             currency: currency,
             recaptcha_response: recaptcha_response
         }),

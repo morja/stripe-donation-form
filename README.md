@@ -2,7 +2,7 @@
 
 This is a simple PHP script that shows a donation form, checks for a valid reCAPTCHA response and upon success sends the user to Stripe Checkout.
 
-![Screenshot](https://user-images.githubusercontent.com/29610198/97800138-26839700-1c33-11eb-95d5-81817390d0f5.jpg)
+![Screenshot](https://user-images.githubusercontent.com/29610198/97800138-26839700-1c33-11eb-95d5-81817390d0f5.jpg  | width=500)
 
 - Variable amount payments
 - Multiple currencies
