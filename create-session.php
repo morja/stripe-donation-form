@@ -59,22 +59,22 @@ function createSession() {
     try {
 
         $session_params = [
-          'payment_method_types' => ['card'],
-          'line_items' => [[
-            'price_data' => [
-              'currency' => $body->currency,
-              'unit_amount' => intval($body->amount) * 100,
-              'product_data' => [
-                'name' => $config['product_name'],
-                'description' => $config['product_descriptiion']
-              ],
-            ],
-            'quantity' => 1,
-            'description' => $config['product_descriptiion'],
-          ]],
-          'mode' => $body->mode,
-          'success_url' => $config['success_url'], 
-          'cancel_url' => $config['cancel_url'],
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => $body->currency,
+                    'unit_amount' => intval($body->amount) * 100,
+                    'product_data' => [
+                        'name' => $config['product_name'],
+                        'description' => $config['product_descriptiion']
+                    ],
+                ],
+                'quantity' => 1,
+                'description' => $config['product_descriptiion'],
+            ]],
+            'mode' => $body->mode,
+            'success_url' => $config['success_url'], 
+            'cancel_url' => $config['cancel_url'],
         ];
 
         if ($config['subscription'] && $body->mode == 'subscription') {
@@ -82,12 +82,15 @@ function createSession() {
                 'interval' => $config['subscription_interval'],
                 'interval_count' => $config['subscription_interval_count'],
               ];
+        } else {
+            // pass description to appear in the Stripe UI
+            $session_params['payment_intent_data']['description'] = $config['product_descriptiion'];
         }
 
         \Stripe\Stripe::setApiKey($config['stripe_secret_key']);
         $checkout_session = \Stripe\Checkout\Session::create($session_params);
 
-        //file_put_contents("debug.log", print_r($checkout_session, true));
+        file_put_contents("debug.log", print_r($checkout_session, true));
 
         echo json_encode(['id' => $checkout_session->id]);
     } catch(\Exception $e) {
