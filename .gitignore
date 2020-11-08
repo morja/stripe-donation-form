@@ -4,3 +4,4 @@ config.php
 composer.lock
 *.time
 *.log
+bank-transfer
