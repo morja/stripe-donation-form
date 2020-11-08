@@ -72,16 +72,6 @@ button, input {
   border-radius:4px;
   font-size:1em;
 }
-.text-input {
-  width: 240px;
-  border: 2px;
-  border-radius: 4px;
-  background-color:#ffffff;
-  border-style: solid;
-  border-color: #a2a2a5;
-  color:#555555;
-  text-transform: lowercase;
-}
 .active, #checkout-button {
   background-color:#bf8052;
   border-color: #bf8052;
