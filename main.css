@@ -70,6 +70,9 @@ button, input {
   font-size:1em;
   width: 100%;
 }
+*:focus {
+  outline-color: #666;
+}
 .active, #checkout-button {
   background-color:#bf8052;
   border-color: #bf8052;
