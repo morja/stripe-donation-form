@@ -1,87 +1,81 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
 }
 #buttons {
-  max-width: 300px;
-}
-.row {
-  width: 100%;
-  white-space: nowrap;
-}
-.row1 * {
-  width: calc(50% - 8px);
-}
-.row2 * {
-  width: calc(33% - 8px);
-}
-.row3 div * {
-  width: calc(25% - 9px);
+  max-width: 310px;
 }
 
-.custom_amount_left {
-  padding-left: 2px;
+.row {
+  display: flex;
+  flex-flow: row wrap;
 }
-.row4 > * {
-  display: inline-block; 
-  width: calc(50% - 6px);
+
+.section {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 1;
+  min-width: 0;
+  border: 0;
 }
-.row4 .table > * {
-  display: inline-block; 
+
+.section-child {
+  padding:3px 3px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
 }
-.row4 .custom_amount {
-  width: calc(100% - 15px);
+
+.custom_amount div {
+  float:left;
 }
-.row4 .custom_amount input {
+.custom_amount .amount_input {
+  width: calc(100% - 19px);
+  margin-left: 3px; 
+}
+.custom_amount input {
   width: 100%;
-  margin:3px 0px 3px 0;
   background-color:#fff;
   color:#a2a2a5;
-  padding:5px 5px;
-  margin:3px 0 3px 0px;
   border: 2px;
   border-radius: 4px;
   border-width: 2px;
   border-style: solid;
   border-color: #a2a2a5;
-  height: 30px;
+  height: 31px;
+  padding:8px 5px;
+  text-align: center;
 }
-.row4 .currsym {
+.custom_amount .currency_symbol {
   background-color:#a2a2a5;
   color:#FFF;
-  padding:4px 2px;
-  margin:3px 0; 
+  padding:8px 3px;
+  width: 10px;
   border:0;
   border-radius:4px;
-  font-size: 1em;
   font-weight: normal;
-  width: 10px;
 }
 
 button, input {
   background-color:#a7a2a2;
-  font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 13px !important;
   font-weight: 400;
-  line-height: normal;
   color:#FFF;
   padding:8px 8px;
-  margin:3px;
   border:0;
   border-radius:4px;
   font-size:1em;
+  width: 100%;
 }
 .active, #checkout-button {
   background-color:#bf8052;
   border-color: #bf8052;
 }
 #checkout-button {
-  margin:3px 3px 3px 6px;
   cursor: pointer;
-}
-.currency_option:nth-of-type(2), .currency_option:nth-of-type(3) {
-  display: none;
 }
 #error-message {
   font-size: 12px;
@@ -103,3 +97,4 @@ button, input {
 #recaptcha_text a {
   color: #666666;
 }
+

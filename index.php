@@ -8,7 +8,7 @@ include('config.php');
 <html>
   <head>
     <title><?php echo $config['product_descriptiion']; ?></title>
-    <link rel="stylesheet" href="<?php echo $config['base_path']; ?>/main.css">
+    <link rel="stylesheet" href="<?php echo $config['base_path']; ?>/main.css?v=2.0">
 
     <!-- Load Stripe.js on your website. -->
     <script src="https://js.stripe.com/v3"></script>
@@ -22,23 +22,12 @@ include('config.php');
 
     <!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
     <script type="text/javascript">
-    function showhide(id){
+    function setSymbol(symbol){
       if (document.getElementById) {
-        var divid = document.getElementById(id);
-        var divs = document.getElementsByClassName("currency_option");
+        var divs = document.getElementsByClassName("currency_symbol");
         for(var i=0;i<divs.length;i++) {
-          divs[i].style.display = "none";
+          divs[i].innerHTML = symbol;
         }
-        var divs = document.getElementsByClassName('amount');
-        for(var i=0;i<divs.length;i++) {
-          divs[i].classList.remove('active');
-        }
-        var divs = document.getElementsByName('other_amount');
-        for(var i=0;i<divs.length;i++) {
-          divs[i].value = 'Other Amount';
-        }
-        divid.style.display = "block";
-        document.getElementById(id+"_custom").style.display = "block";
       } 
       return false;
     }
@@ -68,42 +57,53 @@ include('config.php');
     <center>
         <div id="buttons">
             <?php if ($config['subscription']) { ?>
-            <div class="row row1">
-                <button id="method_once" name="method" onclick="choose(this);" value="payment" class="method active">ONCE</button>
-                <button id="method_monthly" name="method" onclick="choose(this);" value="subscription" class="method">MONTHLY</button>
+            <div class="row">
+                <div class="section">
+                    <div class="section-child">
+                        <button id="method_once" name="method" onclick="choose(this);" value="payment" class="method active">ONCE</button>
+                    </div> 
+                    <div class="section-child">
+                        <button id="method_monthly" name="method" onclick="choose(this);" value="subscription" class="method">MONTHLY</button>
+                    </div> 
+                </div> 
             </div> 
               <?php }  ?>
-            <div class="row row2">
+            <div class="row">
+                <div class="section">
                 <?php 
                 $first_active = " active";
                 foreach ($config['currencies'] as $currency => $symbol) { ?>
-                    <button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); showhide(this.value);" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
+                    <div class="section-child">
+                        <button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); setSymbol('<?php echo $symbol;?>');" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
+                    </div>
                     <?php 
                     $first_active = "";
-                } ?></div> 
-            <div class="row row3">
-              <?php foreach ($config['currencies'] as $currency => $symbol) { ?> 
-                <div id="<?php echo strtolower($currency);?>" class="currency_option"> 
+                } ?></div></div>
+            <div class="row">
+                <div class="section">
                 <?php foreach ($config['amounts'] as $amount) { ?>
-                    <button id="button_<?php echo strtolower($currency.$amount);?>" onclick="choose(this);" role="link" type="button" name="fixed_amount" class="amount" value="<?php echo $amount; ?>"><?php echo $symbol; ?><?php echo $amount; ?></button>
-                <?php } ?></div> 
-              <?php } ?>
+                    <div class="section-child">
+                        <button id="button_<?php echo $amount;?>" onclick="choose(this);" role="link" type="button" name="fixed_amount" class="amount" value="<?php echo $amount; ?>"><span class="currency_symbol"><?php echo reset($config['currencies']); ?></span><?php echo $amount; ?></button>
+                    </div>
+                <?php } ?>
+                </div>
             </div>
-            <div class="row row4">
-                <div>
-                <?php foreach ($config['currencies'] as $currency => $symbol) {?>
-                    <div id="<?php echo strtolower($currency);?>_custom" class="currency_option custom_amount_left">
-                        <div class="table">
-                          <div class="currsym"><?php echo $symbol; ?></div>
-                          <div class="custom_amount">
-                            <input id="input_<?php echo strtolower($currency);?>" type="text" onfocus="choose(this); this.value = '';" onblur="if(this.value=='') {this.value='Other Amount';}" onkeyup="value=value.replace(/[^\d]/g,'')" name="other_amount" value="Other Amount" min="5" class="amount">
-                           </div>
+            <div class="row">
+                <div class="section">
+                    <div class="section-child">
+                            <div class="custom_amount">
+                              <div class="currency_symbol"><?php echo reset($config['currencies']); ?></div>
+                              <div class="amount_input">
+                                <input id="input_<?php echo strtolower($currency);?>" type="text" onfocus="choose(this); this.value = '';" onblur="if(this.value=='') {this.value='Other Amount';}" onkeyup="value=value.replace(/[^\d]/g,'')" name="other_amount" value="Other Amount" min="5"  class="amount">
+                            </div>
                         </div>
                     </div>
-                <?php }  ?>
+                    <div class="section-child">
+                        <button id="checkout-button" role="link" type="button" name="checkout-button" class="">DONATE</button>
+                    </div>
                 </div>
-                <button id="checkout-button" role="link" type="button" name="checkout-button" class="">DONATE</button>
             </div>
+        </div>
 
             <div id="error-message"></div>
 
