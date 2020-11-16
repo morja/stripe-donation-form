@@ -42,15 +42,6 @@ include('config.php');
       } 
       return false;
     }
-    function unchoose(className){
-      if (document.getElementById) {
-        var divs = document.getElementsByClassName(className);
-        for(var i=0;i<divs.length;i++) {
-          divs[i].classList.remove('active');
-        }
-      } 
-      return false;
-    }
     </script>
   </head>
 <body>
@@ -74,7 +65,7 @@ include('config.php');
                 $first_active = " active";
                 foreach ($config['currencies'] as $currency => $symbol) { ?>
                     <div class="section-child">
-                        <button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="unchoose('amount'); choose(this); setSymbol('<?php echo $symbol;?>');" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
+                        <button id="currency_<?php echo strtolower($currency);?>" name="currency" onclick="choose(this); setSymbol('<?php echo $symbol;?>');" class="currency<?php echo $first_active; ?>" value="<?php echo strtolower($currency);?>"><?php echo $currency;?></button>
                     </div>
                     <?php 
                     $first_active = "";
